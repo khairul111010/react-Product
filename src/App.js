@@ -2,6 +2,7 @@ import "./App.css";
 import { useState, useEffect } from "react";
 import Product from "./Product";
 import Filter from "./Filter";
+import { motion, AnimatePresence } from "framer-motion";
 function App() {
   const [products, setProducts] = useState([]);
   const [filtered, setFiltered] = useState([]);
@@ -27,11 +28,13 @@ function App() {
           activeCat={activeCat}
           setActiveCat={setActiveCat}
         />
-        <div className="popular-products">
-          {products.map((p) => {
-            return <Product key={p.id} product={p} />;
-          })}
-        </div>
+        <motion.div Layout className="popular-products">
+          <AnimatePresence>
+            {filtered.map((p) => {
+              return <Product key={p.id} product={p} />;
+            })}
+          </AnimatePresence>
+        </motion.div>
       </div>
     </div>
   );
